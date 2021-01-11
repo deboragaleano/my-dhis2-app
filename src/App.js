@@ -1,31 +1,29 @@
 import React from "react";
-// import i18n from '@dhis2/d2-i18n'
-// import {DataQuery} from '@dhis2/app-runtime'
-import classes from "./App.module.css";
-import ProgramList from "./ProgramList";
-
-// const query = {
-//     me: {
-//         resource: 'me'
-//     }
-// }
+import styles from "./App.module.css";
+import {Navigation} from "./navigation"
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {Home, Form, Attributes, NoMatch} from "./views"
 
 const MyApp = () => (
-  <div className={classes.container}>
-    {/* <DataQuery query={query}>
-      {({ error, loading, data }) => {
-        if (error) return <span>ERROR</span>;
-        if (loading) return <span>...</span>;
-        return (
-          <>
-            <h1>{i18n.t("Hello {{name}}", { name: data.me.name })}</h1>
-            <h3>{i18n.t("Welcome to DHIS2!")}</h3>
-          </>
-        );
-      }}
-    </DataQuery> */}
-    <ProgramList />
-  </div>
+  <BrowserRouter>
+    <div className={styles.container}>
+      <div className={styles.left}>
+        <Navigation />
+      </div>
+
+      <div className={styles.right}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+
+          <Route exact path="/form" component={Form} />
+
+          <Route exact path="/attributes" component={Attributes} />
+
+          <Route component={NoMatch} />
+        </Switch>
+      </div>
+    </div>
+  </BrowserRouter>
 );
 
 export default MyApp;
